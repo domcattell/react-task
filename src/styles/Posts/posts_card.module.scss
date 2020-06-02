@@ -1,27 +1,23 @@
 @import '../global.scss';
 
 .posts_card {
-	display: flex;
-	flex-direction: column;
-	border-radius: 5px;
-	margin-top: 30px;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgb(224, 224, 224);
-    overflow: hidden;
-    width: 768px;
-
-    @include xs {
-        width: 100%;
-    }
-
 	&__title {
-		background-color: rgb(247, 247, 247);
-		padding: 0.8em;
+		padding-bottom: 1em;
 		font-size: 20px;
 		font-weight: 700;
+		border-bottom: 1px solid $border-clr;
 	}
 
 	&__body {
-        padding: 0.8em;
+        padding: 1em 0;
+	}
+
+	&__controls {
+		padding-top: 1em;
+		border-top: 1px solid $border-clr;
+
+		i {
+			margin-right: 0.5em;
+		}
 	}
 }

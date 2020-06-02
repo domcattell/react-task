@@ -6,6 +6,8 @@ import './styles/reset.css';
 import Homepage from './pages/Homepage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import UserPosts from './pages/UserPosts';
+import Post from './pages/Post'
 import NavigationBar from './components/Nav/NavigationBar';
 
 import { PostsProvider } from './actions/posts.context';
@@ -27,6 +29,8 @@ function App() {
 					<Route exact path="/" component={Homepage} />
 					<Route exact path="/login" component={Login} />
 					<Route exact path="/register" component={Register} />
+					<Route exact path="/users/:id/posts" component={UserPosts} />
+					<Route exact path="/posts/:id" component={Post} />
 				</Switch>
 			</UsersProvider>
 		</PostsProvider>

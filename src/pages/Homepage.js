@@ -3,6 +3,7 @@ import { UsersActions, UsersContext } from '../actions/users.context';
 import GridContainer from '../components/Layout/GridContainer';
 import UserCard from '../components/Users/UserCard';
 import Header from '../components/Layout/Header';
+import PageContainer from '../components/Layout/PageContainer';
 
 const Index = () => {
 	//grabs what's needed from the global state. in this case, the posts state
@@ -16,13 +17,14 @@ const Index = () => {
 	}, []);
 
 	return (
-		<div>
-			<Header title="Users"/>
+		<PageContainer>
+			<Header title="ALL USERS"/>
 			<GridContainer>
 				{users.map((user) => (
 					<UserCard
-						key={user.id}
-						name={user.name}
+                        key={user.id}
+                        id={user.id}				
+                        name={user.name}
 						username={user.username}
 						email={user.email}
 						street={user.address.street}
@@ -35,7 +37,7 @@ const Index = () => {
 					/>
 				))}
 			</GridContainer>
-		</div>
+		</PageContainer>
 	);
 };
 

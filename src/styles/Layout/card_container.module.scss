@@ -3,7 +3,13 @@
 .card_container {
     border: 1px solid $border-clr;
     padding: 1em;
-    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.08);
     color: $text-clr;
     transition: border-color 0.3s ease;
+    background-color: white;
+    margin-bottom: auto;
+
+    &:hover {
+        border-color: darken($border-clr, 20%);
+    }
 }

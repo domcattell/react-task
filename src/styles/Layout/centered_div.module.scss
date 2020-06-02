@@ -1,6 +1,17 @@
+@import '../global.scss';
+
 .centered_div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 2em;
+
+    @include sm {
+        margin: 1em;
+    }
+
+    @include xs {
+        margin: 0;
+    }
 }

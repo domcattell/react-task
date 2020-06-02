@@ -1,6 +1,16 @@
+@import '../global.scss';
+
 .grid_container {
     display: grid;
-    margin: 3em;
-    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-    grid-gap: 2em;
+    margin: 3em 8em;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-gap: 2.5em;
+    
+    @include xs {
+        margin: 1em;
+    }
+
+    @include xxs {
+        margin: 0;
+    }
 }

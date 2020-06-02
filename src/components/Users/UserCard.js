@@ -2,11 +2,15 @@ import React from 'react';
 import styles from '../../styles/Users/user_card.module.scss';
 import { Link } from 'react-router-dom';
 import CardContainer from '../Layout/CardContainer';
+import { Button } from 'react-bootstrap';
 
 const UserCard = (props) => {
 	return (
 		<CardContainer>
 			<div className={styles.user_card__details}>
+				<div className={styles.user_card__avatar}>
+					<i class="fas fa-user"></i>
+				</div>
 				<h5 className={styles.user_card__name}>{props.name}</h5>
 				<p className={styles.user_card__username}>username: {props.username}</p>
 				<p className={styles.user_card__website}>website: {props.website}</p>
@@ -30,12 +34,16 @@ const UserCard = (props) => {
 			</div>
 
 			<div className={styles.user_card__controls}>
-				<Link className={styles.user_card__link}>
-					<i className="fas fa-comment-alt" />
-					Posts
+				<Link to={`/users/${props.id}/posts`}>
+					<Button variant="outline-dark" size="sm">
+						<i className="fas fa-comment-alt" />
+						Posts
+					</Button>
 				</Link>
-				<Link className={styles.user_card__link}>
-					<i className="fas fa-images" />Albums
+				<Link>
+					<Button variant="outline-dark" size="sm">
+						<i className="fas fa-images" />Albums
+					</Button>
 				</Link>
 			</div>
 		</CardContainer>

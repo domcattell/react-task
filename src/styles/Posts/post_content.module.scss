@@ -1,0 +1,16 @@
+@import '../global.scss';
+
+.post_content {
+	color: $text-clr;
+	padding-bottom: 3em;
+	border-bottom: 1px solid $border-clr;
+
+	&__title {
+		font-weight: 700;
+		font-size: 28px;
+	}
+
+	&__body {
+		padding-top: 1em;
+	}
+}
