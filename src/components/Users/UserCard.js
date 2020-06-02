@@ -1,0 +1,45 @@
+import React from 'react';
+import styles from '../../styles/Users/user_card.module.scss';
+import { Link } from 'react-router-dom';
+import CardContainer from '../Layout/CardContainer';
+
+const UserCard = (props) => {
+	return (
+		<CardContainer>
+			<div className={styles.user_card__details}>
+				<h5 className={styles.user_card__name}>{props.name}</h5>
+				<p className={styles.user_card__username}>username: {props.username}</p>
+				<p className={styles.user_card__website}>website: {props.website}</p>
+			</div>
+
+			<p className={styles.user_card__company}>Company: {props.company}</p>
+
+			<div className={styles.user_card__address}>
+				<p>Address</p>
+				<ul>
+					<li>Street: {props.street}</li>
+					<li>suite: {props.suite}</li>
+					<li>city: {props.city}</li>
+					<li>zipcode: {props.zipcode}</li>
+				</ul>
+			</div>
+
+			<div className={styles.user_card__contact}>
+				<p className={styles.user_card__email}>{props.email}</p>
+				<p className={styles.user_card__phone}>Contact: {props.phone}</p>
+			</div>
+
+			<div className={styles.user_card__controls}>
+				<Link className={styles.user_card__link}>
+					<i className="fas fa-comment-alt" />
+					Posts
+				</Link>
+				<Link className={styles.user_card__link}>
+					<i className="fas fa-images" />Albums
+				</Link>
+			</div>
+		</CardContainer>
+	);
+};
+
+export default UserCard;

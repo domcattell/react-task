@@ -9,9 +9,10 @@ import Register from './pages/Register';
 import NavigationBar from './components/Nav/NavigationBar';
 
 import { PostsProvider } from './actions/posts.context';
+import { UsersProvider } from './actions/users.context';
 
 function App() {
-  /**
+	/**
    * I use the contextAPI for global state, as I find it cleaner to use with
    * less markup. It's also very easy to setup and doesn't have to be configured
    * in any strict way. @PostsProvider and @AuthProvider are wrapped around all
@@ -20,12 +21,14 @@ function App() {
    */
 	return (
 		<PostsProvider>
-			<NavigationBar />
-			<Switch>
-				<Route exact path="/" component={Homepage} />
-				<Route exact path="/login" component={Login} />
-				<Route exact path="/register" component={Register} />
-			</Switch>
+			<UsersProvider>
+				<NavigationBar />
+				<Switch>
+					<Route exact path="/" component={Homepage} />
+					<Route exact path="/login" component={Login} />
+					<Route exact path="/register" component={Register} />
+				</Switch>
+			</UsersProvider>
 		</PostsProvider>
 	);
 }

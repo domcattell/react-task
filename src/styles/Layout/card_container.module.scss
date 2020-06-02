@@ -1,0 +1,9 @@
+@import '../global.scss';
+
+.card_container {
+    border: 1px solid $border-clr;
+    padding: 1em;
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.1);
+    color: $text-clr;
+    transition: border-color 0.3s ease;
+}
