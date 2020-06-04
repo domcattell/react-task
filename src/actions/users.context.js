@@ -1,7 +1,7 @@
 import React, {createContext, useReducer} from 'react';
 import axios from 'axios';
 import users from '../placeholder_data/users.json';
-import {GET_USERS, GET_USERS_FAILED, GET_CURRENT_USER, GET_CURRENT_USER_FAILED} from './types';
+import {GET_USERS, CLEAR_USERS, CLEAR_USER, GET_USERS_FAILED, GET_CURRENT_USER, GET_CURRENT_USER_FAILED} from './types';
 import usersReducer from '../reducers/usersReducer';
 
 export const UsersContext = createContext();
@@ -14,14 +14,14 @@ export const UsersProvider = (props) => {
         users: [],
         currentUsername: {},
         usersError: "",
-        loadingUsers: true
+        loadingUsers: true,
+        loadingUser: true
     }
 
     //setup userReducer hook using usersReducer and the initial state declared above
     const [state, dispatch] = useReducer(usersReducer, initialState);
 
-    //actions
-    //get all users
+    //get a list of all users
     const getUsers = async () => {
         try {
             const result = await axios.get("https://jsonplaceholder.typicode.com/users")
@@ -36,12 +36,9 @@ export const UsersProvider = (props) => {
         }
     }
 
-    //gets the current user. this can be used when seeing a list of an individual users posts, as the posts request
+    //gets a specific users username. this can be used when seeing a list of an individual users posts, as the posts request
     //only includes the userID, however by doing this request, you can pull the users information, such as name, username using the same
     //userID parameter used when getting a users posts
-    //it seems as though this route takes a while and times out mostly, however it's a good example
-    //to see how error handling with the global state works, where the function will catch the error
-    //and run GET_CURRENT_USER_FAILED
     const getCurrentUser = async (userID) => {
         try {
             const result = await axios.get(`https://jsonplaceholder.typicode.com/users?id=${userID}`)
@@ -56,10 +53,24 @@ export const UsersProvider = (props) => {
         }
     }
 
+    const clearUser = () => {
+        dispatch({
+            type: CLEAR_USER
+        })
+    }
+
+    const clearUsers = () => {
+        dispatch({
+            type: CLEAR_USERS
+        })
+    }
+
     //store all actions here and add to the value in the provider
     const actions = {
         getUsers,
-        getCurrentUser
+        getCurrentUser,
+        clearUser,
+        clearUsers
     }
 
     //return providers that will wrap around the App component and allow children access to context

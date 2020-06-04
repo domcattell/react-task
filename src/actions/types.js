@@ -39,3 +39,6 @@ export const LOGIN_FAILED = "LOGIN_FAILED"
 export const AUTH_SUCCESS = "CHECK_AUTH"
 export const AUTH_FAILED = "CHECK_AUTH_FAILED"
 export const LOGOUT = "LOGOUT"
+
+export const CLEAR_USER = "CLEAR_USER"
+export const CLEAR_USERS = "CLEAR_USERS"

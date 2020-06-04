@@ -51,8 +51,8 @@ export const PostsProvider = (props) => {
 		comments: [],
 		post: {},
 		userPosts: [],
-		postsError: null,
-		commentError: null,
+		PostsMsg: "",
+		CommentsMsg: "null",
 		loadingPost: true,
 		loadingUserPosts: true,
 		loadingComments: true

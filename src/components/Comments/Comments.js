@@ -6,7 +6,7 @@ import styles from '../../styles/Comments/comments.module.scss'
 import AddComment from '../Comments/AddComment';
 
 /**
- * simple components for fetching all comments for a post.
+ * component for fetching all comments for a post.
  * firstly gets what needed from globalstate using the context hook
  * gets comments with @getComments using props.id as the param based from
  * the parent component. @commentsLoading is set to true in global state,

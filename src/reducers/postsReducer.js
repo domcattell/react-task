@@ -25,7 +25,8 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				loadingUserPosts: false,
-				userPosts: action.payload
+				userPosts: action.payload,
+				PostsMsg: ''
 			};
 
 		case GET_POSTS_FAILED:
@@ -33,14 +34,15 @@ const reducer = (state, action) => {
 				...state,
 				loadingUserPosts: false,
 				userPosts: [],
-				postsError: 'Something went wrong getting the posts'
+				PostsMsg: 'Something went wrong getting the posts'
 			};
 
 		case GET_POST:
 			return {
 				...state,
 				loadingPost: false,
-				post: action.payload
+				post: action.payload,
+				postsMsg: ''
 			};
 
 		case GET_POST_FAILED:
@@ -48,14 +50,15 @@ const reducer = (state, action) => {
 				...state,
 				loadingPost: false,
 				post: {},
-				postsError: 'Something went wrong getting this post'
+				PostsMsg: 'Something went wrong getting this post'
 			};
 
 		case GET_COMMENTS:
 			return {
 				...state,
 				loadingComments: false,
-				comments: action.payload
+				comments: action.payload,
+				commentsMsg: ''
 			};
 
 		case GET_COMMENTS_FAILED:
@@ -63,14 +66,29 @@ const reducer = (state, action) => {
 				...state,
 				loadingComments: false,
 				comments: [],
-				postsError: 'Something went wrong getting the comments'
+				commentsMsg: 'Something went wrong getting the comments'
 			};
 
 		case CLEAR_POST:
 			return {
 				...state,
 				post: {},
-				loadingPost: true
+				loadingPost: true,
+				postsMsg: ''
+			};
+
+		case CLEAR_USERS_POSTS:
+			return {
+				...state,
+				userPosts: [],
+				loadingUserPosts: true
+			};
+
+		case CLEAR_COMMENTS:
+			return {
+				...state,
+				comments: [],
+				loadingComments: true
 			};
 
 		case EDIT_COMMENT:
@@ -82,39 +100,25 @@ const reducer = (state, action) => {
 		case ADD_COMMENT:
 			return {
 				...state,
-				comments: [...state.comments, action.payload]
-			}
+				comments: [ ...state.comments, action.payload ]
+			};
 
 		case ADD_COMMENT_FAILED:
 			return {
 				...state,
-				commentError: "Error ocurred adding the comment"
-			}
+				commentError: 'Error ocurred adding the comment'
+			};
 
 		case EDIT_COMMENT_FAILED:
 			return {
 				...state,
-				commentError: "Error ocurred updating the comment"
-			}
+				commentError: 'Error ocurred updating the comment'
+			};
 
 		case DELETE_COMMENT:
 			return {
 				...state,
-				comments: state.comments.filter(comment => comment.id !== action.payload)
-			}
-
-		case CLEAR_COMMENTS:
-			return {
-				...state,
-				comments: [],
-				loadingComments: true
-			};
-
-		case CLEAR_USERS_POSTS:
-			return {
-				...state,
-				userPosts: [],
-				loadingUserPosts: true
+				comments: state.comments.filter((comment) => comment.id !== action.payload)
 			};
 
 		default:

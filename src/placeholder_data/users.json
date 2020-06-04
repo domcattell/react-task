@@ -22,5 +22,11 @@
         "email": "dom@email.com",
         "username": "dom",
         "password": "password4"
+    },
+    {
+        "id": 5,
+        "email": "admin@email.com",
+        "username": "admin",
+        "password": "admin"
     }
 ]

@@ -8,8 +8,8 @@ export const AuthContext = createContext();
 export const AuthActions = createContext();
 
 export const AuthProvider = (props) => {
-    //is Authenticated uses the return value from the "tokenValid" helper function.
-    //this would usually be validated against the server to see if the token has expired or not
+	//is Authenticated uses the return value from the "tokenValid" helper function.
+	//this would usually be validated against the server to see if the token has expired or not
 	const initialState = {
 		loadingAuth: false,
 		isAuthenticated: tokenValid(),
@@ -19,7 +19,7 @@ export const AuthProvider = (props) => {
 
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
-    /**
+	/**
      * auth state is a bit different, as it's pulling data from a local json file.
      * @login maps through the json file and checks if the @param user matches the json
      * data. if so, LOGIN will add a fake JSON token with the value "0000" to localStorage,
@@ -53,28 +53,28 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-    const checkAuth = () => {
-        if(localStorage.getItem("pretend-json-token") === "0000") {
-            dispatch({
-                type: AUTH_SUCCESS
-            }) 
-        } else {
-            dispatch({
-                type: AUTH_FAILED
-            })
-        }
-    }
+	const checkAuth = () => {
+		if (localStorage.getItem('pretend-json-token') === '0000') {
+			dispatch({
+				type: AUTH_SUCCESS
+			});
+		} else {
+			dispatch({
+				type: AUTH_FAILED
+			});
+		}
+	};
 
-    const logout = () => {
-        dispatch({
-            type: LOGOUT
-        })
-    }
+	const logout = () => {
+		dispatch({
+			type: LOGOUT
+		});
+	};
 
 	const actions = {
-        login,
-        checkAuth,
-        logout
+		login,
+		checkAuth,
+		logout
 	};
 
 	return (
