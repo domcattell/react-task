@@ -1,29 +1,33 @@
 @import '../global.scss';
 
 .user_card {
-    color: $text-clr;
-
-    &:hover {
-        border-color: darken($border-clr, 20%);
-    }
-
+    
     &__avatar {
         position: absolute;
         left: 0;
         top: 0;
-        font-size: 3rem;
-        color: $blue;
+        font-size: 2.5rem;
+        color: white;
+        padding: 0.5em;
+        height: 100%;
+        // background-color: rgb(63, 62, 62);
     }
 
     &__details {
+        overflow: hidden;
         border-bottom: 1px solid $border-clr;
-        margin-bottom: 1em;
-        padding-bottom: 1em;
         display: flex;
         justify-content: center;
         flex-direction: column;
         align-items: center;
         position: relative;
+        background-color: $blue;
+        background-image: linear-gradient(to left bottom, #6baa75, #67a571, #63a06c, #5f9b68, #5b9664);        margin: -1em;
+        padding: 1em;
+        margin-bottom: 1em;
+        color: white;
+        // margin-bottom: 1em;
+        // padding-bottom: 1em;
     }
 
     &__name {
@@ -31,13 +35,13 @@
         font-weight: 700;
     }
 
-    &__username {
-        color: $text-lighter-clr;
-    }
+    // &__username {
+    //     color: $text-lighter-clr;
+    // }
 
-    &__website {
-        color: $text-lighter-clr;
-    }
+    // &__website {
+    //     color: $text-lighter-clr;
+    // }
 
     &__company {
         font-size: 1.2rem;

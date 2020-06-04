@@ -8,8 +8,10 @@
     transition: border-color 0.3s ease;
     background-color: white;
     margin-bottom: auto;
+    border-radius: 10px;
+    overflow: hidden;
 
-    &:hover {
-        border-color: darken($border-clr, 20%);
-    }
+    // &:hover {
+    //     border-color: darken($border-clr, 20%);
+    // }
 }

@@ -18,7 +18,7 @@ const Index = () => {
 
 	return (
 		<PageContainer>
-			<Header title="ALL USERS"/>
+			<Header title="All Users"/>
 			<GridContainer>
 				{users.map((user) => (
 					<UserCard

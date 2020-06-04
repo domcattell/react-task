@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from '../../styles/NavigationBar/navbar.module.scss';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 
 const NavigationBar = () => {
 	return (
-		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
 			<Navbar.Brand href="/">React-Task</Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="responsive-navbar-nav">
@@ -20,6 +20,10 @@ const NavigationBar = () => {
 						<NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
 					</NavDropdown>
 				</Nav>
+				<Form inline>
+					<FormControl type="text" placeholder="Search Posts ID" size="sm" className="mr-sm-2" />
+					<Button variant="outline-light" size="sm">Search</Button>
+				</Form>
 			</Navbar.Collapse>
 		</Navbar>
 	);

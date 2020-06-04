@@ -1,1 +1,10 @@
 @import '../global.scss';
+
+.comments {    
+    &__header {
+        color: $text-lighter-clr;
+        padding: 1em;
+        font-size: 0.9rem;
+        font-weight: 700;
+    }
+}

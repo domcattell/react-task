@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 
+//use the react-bootstrap package here to speed up the markup
 const LoginForm = () => {
 	return (
 		<Container>

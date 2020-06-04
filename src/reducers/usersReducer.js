@@ -2,21 +2,18 @@ import {GET_USERS, GET_USERS_FAILED, GET_CURRENT_USER, GET_CURRENT_USER_FAILED} 
 
 const reducer = (state, action) => {
     switch(action.type) {
-        //gets all users and fills in the users global state
         case GET_USERS:
             return {
                 ...state,
                 users: action.payload
             };
         
-        //gets current user and fills in the currnetUser global state.
-        //pulls out the first array item as only one item(user) will be 
-        //returned. This means it can be used as an object in components,
-        //rather than an array that has to be mapped to get the value
+        //gets username for current users page that views their posts. uses array value 0
+        //can then easily be used within the app without mapping the value
         case GET_CURRENT_USER:
             return {
                 ...state,
-                currentUser: action.payload[0]
+                currentUsername: action.payload[0].username
             }
 
         case GET_CURRENT_USER_FAILED:

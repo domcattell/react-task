@@ -16,7 +16,7 @@ const PostsCard = (props) => {
 			<div className={styles.posts_card__controls}>
 				<Link to={`/posts/${props.id}`}>
 					<Button variant="outline-dark" size="sm">
-						<i class="fas fa-comments" /> Comments
+						<i className="fas fa-comments" /> Comments
 					</Button>
 				</Link>
 			</div>

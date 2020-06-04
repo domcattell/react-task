@@ -12,9 +12,8 @@ export const UsersProvider = (props) => {
     //initial state
     const initialState = {
         users: [],
-        currentUser: {},
-        loggedInUser: null,
-        usersError: null,
+        currentUsername: {},
+        usersError: "",
         loadingUsers: true
     }
 
