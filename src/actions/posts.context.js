@@ -38,7 +38,7 @@ import postsReducer from '../reducers/postsReducer';
 /**
  * @postsContext @postsActions
  * creates two seperate contexts using the contextAPI
- * postsContext will provide components with the global state
+ * postsContext will provide components with the state
  * postsActions will provide components with actions
  */
 export const PostsContext = createContext();
@@ -47,9 +47,6 @@ export const PostsActions = createContext();
 const BASE_API_URL = "https://jsonplaceholder.typicode.com/"
 
 export const PostsProvider = (props) => {
-	/** usually @postsError would be a response from the server, however
-    * as the backend can't be controlled here, the state has been manually set in the reducer
-    */
 	const initialState = {
 		comments: [],
 		post: {},
@@ -60,6 +57,8 @@ export const PostsProvider = (props) => {
 		loadingUserPosts: true,
 		loadingComments: true
 	};
+	/** usually @postsError could be a response from the server, however
+    * as the backend can't be controlled here, the error message has been manually set in the reducer */
 
 	const [ state, dispatch ] = useReducer(postsReducer, initialState);
 
@@ -108,6 +107,7 @@ export const PostsProvider = (props) => {
 		}
 	};
 
+	// add a new post
 	const addPost = async (post) => {
 		try {
 			const result = await axios.post(`${BASE_API_URL}posts`, post);
@@ -122,6 +122,7 @@ export const PostsProvider = (props) => {
 		}
 	};
 
+	//edit a new post
 	const editPost = async (post, postID) => {
 		try {
 			const result = await axios.put(`${BASE_API_URL}posts/${postID}`, post);
@@ -136,6 +137,7 @@ export const PostsProvider = (props) => {
 		}
 	};
 
+	//delete a post
 	const deletePost = async (postID) => {
 		try {
 			const result = await axios.delete(`${BASE_API_URL}posts/${postID}`);
@@ -150,6 +152,7 @@ export const PostsProvider = (props) => {
 		}
 	};
 
+	//add a comment
 	const addComment = async (comment) => {
 		try {
 			const result = await axios.post(`${BASE_API_URL}comments/`, comment)
@@ -164,6 +167,7 @@ export const PostsProvider = (props) => {
 		}
 	}
 
+	//edit a comment
 	const editComment = async (comment, commentID) => {
 		try {
 			const result = await axios.put(`${BASE_API_URL}comments/${commentID}`, comment)
@@ -178,6 +182,7 @@ export const PostsProvider = (props) => {
 		}
 	}
 
+	//delete a comment
 	const deleteComment = async (commentID) => {
 		try {
 			await axios.delete(`${BASE_API_URL}comments/${commentID}`)

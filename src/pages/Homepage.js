@@ -4,6 +4,7 @@ import GridContainer from '../components/Layout/GridContainer';
 import UserCard from '../components/Users/UserCard';
 import Header from '../components/Layout/Header';
 import PageContainer from '../components/Layout/PageContainer';
+import data from '../placeholder_data/users.json';
 
 const Index = () => {
 	//grabs what's needed from the global state. in this case, the posts state
