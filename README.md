@@ -42,3 +42,4 @@ Both of these could instead be added into a single all in one HOC, as whatever c
 - The search function is a very simple implementation, and thus you can only search for a post by using it's ID.
 - Editing comments and posts the user has added will result in an error message, as they don't actually exist on the server.
 - When deleting a comment or post a user has created, it will also delete the other posts/comments the has user created, as they all share the same ID on the server due to not actually being added into any database.
+- The modals for creating and editing a post and comment could have both been merged into one, allowing one component to be reusable for both adding and deleting, however, I felt that would be a heavy amount of prop drilling, and opted for seperate components.
