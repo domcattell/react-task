@@ -1,3 +1,11 @@
+### Install dependencies
+```sh
+$ npm install
+```
+### Run the app in development mode
+```sh
+$ npm start
+```
 ### Build the app
 ```sh
 $ npm run build
