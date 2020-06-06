@@ -6,10 +6,15 @@ import Error from '../Layout/Error';
 import Loading from '../Layout/Loading';
 
 const NewPost = (props) => {
+	//state and action from context 
 	const { addPost, resetError, postActionProgress } = useContext(PostsActions);
 	const { postsMsg, postsError, inProgress } = useContext(PostsContext);
+	//use hook for controlling form input
 	const [ post, handleChange ] = useInput('');
 
+	//set inprogress boolean to true
+	//add post if resolved, else show
+	//error message if error
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		postActionProgress();
@@ -23,7 +28,7 @@ const NewPost = (props) => {
 			</Modal.Header>
 			<Modal.Body>
 				<Error reset={resetError} error={postsError} message={postsMsg}/>
-				{inProgress && <Loading title="Adding post"/>}
+				<Loading isLoading={inProgress} title="Adding post"/>
 				<Form onSubmit={handleSubmit}>
 					<Form.Label>Post Title</Form.Label>
 					<Form.Group>

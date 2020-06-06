@@ -8,6 +8,8 @@ import UserSettings from '../components/Users/UserSettings'
 import useToggle from '../hooks/useToggle';
 import NewPost from '../components/Modals/NewPost';
 
+//here you can add a new post. It will not be saved to the database 
+//due to the api, but will be added to the global state
 const AccountSettings = () => {
     const { loggedInUser } = useContext(AuthContext);
     const [addPostModal, toggleAddPostModal] = useToggle(false);

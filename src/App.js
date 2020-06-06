@@ -12,9 +12,9 @@ import { CommentsProvider } from './actions/comments.context';
 
 function App() {
 	/**
-   * I use the contextAPI for global state, as I find it cleaner to use with
-   * less markup. It's also very easy to setup and doesn't have to be configured
-   * in any strict way. @PostsProvider and @AuthProvider are wrapped around all
+   * I use the contextAPI for global state, as I find it clean to use with
+   * minimal markup. It's also very easy to setup and doesn't have to be configured
+   * in any strict way. Providers are wrapped around all
    * other components, giving them access to global state and actions if the useContext
    * hook is used in said components. 
    */

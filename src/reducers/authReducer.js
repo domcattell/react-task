@@ -10,7 +10,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: action.payload.username,
 				isAuthenticated: true,
-				authError: ''
+				authMsg: null
 			};
 
 		case LOGIN_FAILED:
@@ -21,7 +21,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: '',
 				isAuthenticated: false,
-				authError: 'Error logging in. Please check the credentials you entered were correct'
+				authMsg: 'Error logging in. Please check the credentials you entered were correct'
 			};
 
 		case AUTH_SUCCESS:
@@ -30,7 +30,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: localStorage.getItem('user'),
 				isAuthenticated: true,
-				authError: ''
+				authMsg: null
 			};
 
 		case AUTH_FAILED:
@@ -41,7 +41,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: '',
 				isAuthenticated: false,
-				authError: ''
+				authMsg: "Please log in"
 			};
 
 		case LOGOUT:
@@ -52,7 +52,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: '',
 				isAuthenticated: false,
-				authMessage: ''
+				authMsg: null
 			};
 
 		default:

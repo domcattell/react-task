@@ -2,6 +2,10 @@ import React from 'react';
 import { Container, Card, Accordion, Button, Form, Col } from 'react-bootstrap';
 import CardContainer from '../Layout/CardContainer';
 
+//dummy user account settings component. None of this
+//is actually functional, however, it would follow the same
+//pattern as the rest of the app, doing a put request
+//whether it's changing the users password or accounts settings
 const UserSettings = () => {
 	return (
 		<Container className="mt-4">

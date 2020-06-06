@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
 
+//dummy component that doesn't actually do anything, however,
+//it would follow the same pattern as the rest of the app,
+//sending a post request to the api to create an account
 const RegisterForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault();

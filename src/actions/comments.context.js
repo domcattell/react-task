@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import {
 	GET_COMMENTS,
 	GET_COMMENTS_FAILED,
@@ -16,22 +16,27 @@ import { BASE_API_URL } from './variables/api';
 import axios from 'axios';
 import commentsReducer from '../reducers/commentsReducer';
 
+//create a new context for state and actions
 export const CommentsContext = createContext();
 export const CommentsActions = createContext();
 
 export const CommentsProvider = (props) => {
+	//set initial state
 	const initialState = {
 		comments: [],
 		loading: true,
-		CommentsMsg: 'null',
+		CommentsMsg: null,
 		inProgress: false,
 		commentsError: false,
 	};
 
+	//userReducer hook to use with imported comments reducer and initial state
 	const [ state, dispatch ] = useReducer(commentsReducer, initialState);
 
+	//actions functions
+
 	//get comments for a post
-	const getComments = async (postID) => {
+	const getComments = useCallback(async(postID) => {
 		try {
 			const result = await axios.get(`${BASE_API_URL}posts/${postID}/comments`);
 			dispatch({
@@ -43,7 +48,7 @@ export const CommentsProvider = (props) => {
 				type: GET_COMMENTS_FAILED
 			});
 		}
-	};
+	},[])
 
 	//add a comment
 	const addComment = async (comment) => {
@@ -91,15 +96,20 @@ export const CommentsProvider = (props) => {
 	};
 
 	//resets comments state, such as loading, inProgress
-	const clearComments = () => dispatch({ type: CLEAR_COMMENTS });
+	const clearComments = useCallback(() => {
+		dispatch({ type: CLEAR_COMMENTS });
+	},[])
 
 	//sets inProgress to true. used when adding, deleting and editing a comment
 	//this could also just be a piece of the local state in components but I opted
 	//to keep all actions in one place
 	const commentActionProgress = () => dispatch({ type: ACTION_PROGRESS });
 
-	const resetError = () => dispatch({type: RESET_ERROR})
+	const resetError = useCallback(() => {
+		dispatch({type: RESET_ERROR})
+	},[])
 
+	//add actions functions to be used in value in Actions Provider
 	const actions = {
 		getComments,
 		addComment,
@@ -110,6 +120,7 @@ export const CommentsProvider = (props) => {
 		resetError
 	};
 
+	//return providers
 	return (
 		<CommentsContext.Provider value={state}>
 			<CommentsActions.Provider value={actions}>{props.children}</CommentsActions.Provider>

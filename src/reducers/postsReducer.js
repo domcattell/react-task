@@ -22,7 +22,7 @@ const reducer = (state, action) => {
 				...state,
 				loading: false,
 				userPosts: action.payload,
-				PostsMsg: '',
+				postsMsg: null,
 				postsError: false
 			};
 
@@ -31,7 +31,7 @@ const reducer = (state, action) => {
 				...state,
 				loading: false,
 				userPosts: [],
-				PostsMsg: 'Something went wrong getting the posts',
+				postsMsg: 'Something went wrong getting the posts',
 				postsError: true
 			};
 
@@ -40,7 +40,7 @@ const reducer = (state, action) => {
 				...state,
 				loading: false,
 				post: action.payload,
-				postsMsg: '',
+				postsMsg: null,
 				postsError: false
 			};
 
@@ -49,7 +49,7 @@ const reducer = (state, action) => {
 				...state,
 				loading: false,
 				post: {},
-				PostsMsg: 'Something went wrong getting this post',
+				postsMsg: 'Something went wrong getting this post',
 				postsError: true
 			};
 
@@ -92,8 +92,8 @@ const reducer = (state, action) => {
 				...state,
 				userPosts: state.userPosts.filter((post) => post.id !== action.payload),
 				inProgress: false,
-				postsError: false,
-				postsMsg: "Deleted post"
+				postsMsg: "Deleted post",
+				postsError: false
 			};
 
 		case DELETE_POST_FAILED:
@@ -109,7 +109,7 @@ const reducer = (state, action) => {
 				...state,
 				loading: true,
 				inProgress: false,
-				postsMsg: '',
+				postsMsg: null,
 				postsError: false
 			};
 

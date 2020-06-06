@@ -88,7 +88,7 @@ const reducer = (state, action) => {
 				...state,
                 loadingComments: true,
 				inProgress: false,
-				commentsMsg: "",
+				commentsMsg: null,
 				commentsError: false
 			};
 

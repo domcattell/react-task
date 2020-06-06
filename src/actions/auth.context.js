@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import accountData from '../placeholder_data/users.json';
 import authReducer from '../reducers/authReducer';
 import tokenValid from '../helpers/tokenValid';
@@ -14,9 +14,10 @@ export const AuthProvider = (props) => {
 		loadingAuth: false,
 		isAuthenticated: tokenValid(),
 		loggedInUser: '',
-		authError: '',
+		authMsg: null,
 	};
 
+	//useReducer hook used with auth reducer and initial state
 	const [ state, dispatch ] = useReducer(authReducer, initialState);
 
 	/**
@@ -26,7 +27,7 @@ export const AuthProvider = (props) => {
      * and sets the @loggedInUser to the username and @isAuthenticated to true, which
      * can then be used to check against authentication throughout the app.
      * if credentials do not match, it will set the state accordingly and will add
-     * an error to @authError
+     * an error message to @authMsg
      * 
      * @checkAuth cheats a little here, as obviously there is no way to validate a user
      * from the server. instead, it looks to see if the "pretend-json-token" in localStorage
@@ -38,6 +39,9 @@ export const AuthProvider = (props) => {
      * and give an appropriate response to that, instead of "0000" being the only valid token.
      */
 
+	//actions functions
+
+	//log in user
 	const login = (user) => {
 		accountData.map((users) => {
 			if (users.username === user.username && users.password === user.password) {
@@ -53,7 +57,8 @@ export const AuthProvider = (props) => {
 		});
 	};
 
-	const checkAuth = () => {
+	//check if user authenticated
+	const checkAuth = useCallback(() => {
 		if (localStorage.getItem('pretend-json-token') === '0000') {
 			dispatch({
 				type: AUTH_SUCCESS
@@ -63,20 +68,23 @@ export const AuthProvider = (props) => {
 				type: AUTH_FAILED
 			});
 		}
-	};
+	},[]);
 
+	//logout user
 	const logout = () => {
 		dispatch({
 			type: LOGOUT
 		});
 	};
 
+	//list of actions to use provider
 	const actions = {
 		login,
 		checkAuth,
 		logout
 	};
 
+	//return providers
 	return (
 		<AuthContext.Provider value={state}>
 			<AuthActions.Provider value={actions}>{props.children}</AuthActions.Provider>

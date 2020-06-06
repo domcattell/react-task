@@ -1,31 +1,37 @@
-import React, { useContext } from 'react';
-import { Form, Button, Container, Row, Col, Jumbotron, Alert } from 'react-bootstrap';
+import React, { useContext, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { Form, Button, Container, Row, Col, Jumbotron } from 'react-bootstrap';
 import { AuthActions, AuthContext } from '../../actions/auth.context';
 import useInput from '../../hooks/useInput';
+import Error from '../Layout/Error';
 
-//use the react-bootstrap package here to speed up the markup
 const LoginForm = (props) => {
+	const { location } = props;
 	const { login } = useContext(AuthActions);
-	const { authError, isAuthenticated } = useContext(AuthContext);
+	const { authMsg, isAuthenticated } = useContext(AuthContext);
 	const [ user, handleChange ] = useInput('');
 
+	//login in the user
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		login(user);
 	};
 
-	isAuthenticated && props.location("/")
+	//check if user is authenticated. if isAuthenticated changes,
+	// rerender component and redirect to "/"
+	useEffect(
+		() => {
+			isAuthenticated && location('/');
+		},
+		[ isAuthenticated, location ]
+	);
 
 	return (
 		<Container className="mt-5">
 			<Jumbotron className="shadow-sm bg-white rounded border border-light">
 				<Row className="d-flex justify-content-lg-center">
 					<Col>
-						{authError && (
-							<Alert variant="danger">
-								{authError}
-							</Alert>
-						)}
+						<Error error={!isAuthenticated} message={authMsg} />
 						<Form onSubmit={handleSubmit}>
 							<Form.Group controlId="username">
 								<Form.Label>Username</Form.Label>
@@ -55,10 +61,13 @@ const LoginForm = (props) => {
 								Login
 							</Button>
 						</Form>
+						<p className="mt-4">
+							Dont have an account? Create one <NavLink to="/register">here</NavLink>
+						</p>
 					</Col>
 				</Row>
 			</Jumbotron>
-		 </Container>
+		</Container>
 	);
 };
 

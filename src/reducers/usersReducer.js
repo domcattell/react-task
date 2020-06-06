@@ -15,7 +15,7 @@ const reducer = (state, action) => {
 				...state,
 				users: action.payload,
 				loadingUsers: false,
-				usersMsg: '',
+				usersMsg: null,
 				usersError: false
 			};
 
@@ -35,32 +35,28 @@ const reducer = (state, action) => {
 				...state,
 				currentUsername: action.payload[0].username,
 				loadingUser: false,
-				usersMsg: '',
+				usersMsg: null,
 				usersError: false
 			};
 
 		case GET_CURRENT_USER_FAILED:
 			return {
 				...state,
-				currentUsername: '',
+				currentUsername: null,
 				loadingUser: false,
 				usersMsg: 'Error occured trying to find this user',
 				usersError: true
 			};
 
+		//user and usersPost will never clash, so on clear, both loadingUser and loadingUsers can
+		//be cleared together
+		case CLEAR_USERS:
 		case CLEAR_USER:
 			return {
 				...state,
 				loadingUser: true,
-				usersMsg: '',
-				usersError: false
-			};
-
-		case CLEAR_USERS:
-			return {
-				...state,
 				loadingUsers: true,
-				usersMsg: '',
+				usersMsg: null,
 				usersError: false
 			};
 		

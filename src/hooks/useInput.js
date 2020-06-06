@@ -1,5 +1,7 @@
 import {useState} from 'react';
 
+//hook for controlling inputs. can have any initial state
+//which is helpful when editing content within the app
 const useInput = (init) => {
     const [state, setState] = useState(init);
 

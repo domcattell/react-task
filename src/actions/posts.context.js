@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, useCallback } from 'react';
 import {
 	GET_USER_POSTS,
 	ADD_POST,
@@ -38,10 +38,11 @@ export const PostsContext = createContext();
 export const PostsActions = createContext();
 
 export const PostsProvider = (props) => {
+	//set initial state
 	const initialState = {
 		post: {},
 		userPosts: [],
-		PostsMsg: '',
+		postsMsg: null,
 		loading: true,
 		inProgress: false,
 		postsError: false
@@ -49,10 +50,13 @@ export const PostsProvider = (props) => {
 	/** usually @postsMsg could be a response from the server, however
     * as the backend can't be controlled here, the message has been manually set in the reducer */
 
+	//useReducer hook to use with imported reducer and initial state
 	const [ state, dispatch ] = useReducer(postsReducer, initialState);
 
+	//actions functions
+
 	//get users posts
-	const getUserPosts = async (userID) => {
+	const getUserPosts = useCallback(async(userID) => {
 		try {
 			const result = await axios.get(`${BASE_API_URL}posts?userId=${userID}`);
 			dispatch({
@@ -64,10 +68,11 @@ export const PostsProvider = (props) => {
 				GET_POSTS_FAILED
 			});
 		}
-	};
+	},[])
+
 
 	//get a specific post
-	const getPost = async (postID) => {
+	const getPost = useCallback(async(postID) => {
 		try {
 			const result = await axios.get(`${BASE_API_URL}posts/${postID}`);
 			dispatch({
@@ -79,7 +84,7 @@ export const PostsProvider = (props) => {
 				type: GET_POST_FAILED
 			});
 		}
-	};
+	},[])
 
 	// add a new post
 	const addPost = async (post) => {
@@ -127,18 +132,22 @@ export const PostsProvider = (props) => {
 	};
 
 	//clear actions for cleanup on components. resets global state, such as loading states.
-	const clearPost = () => {
+	const clearPost = useCallback(() => {
 		dispatch({
 			type: CLEAR_POST
 		});
-	};
+	},[])
 
-	const clearUserPosts = () => dispatch({ type: CLEAR_USERS_POSTS });
+	const clearUserPosts = useCallback(() => {
+		dispatch({ type: CLEAR_USERS_POSTS });
+	},[])
 
 	const postActionProgress = () => dispatch({ type: ACTION_PROGRESS });
 
-	const resetError = () => dispatch({type: RESET_ERROR})
-
+	const resetError = useCallback(() => {
+		dispatch({type: RESET_ERROR})
+	},[])
+	
 	const actions = {
 		getUserPosts,
 		getPost,

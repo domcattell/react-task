@@ -10,15 +10,18 @@ import {
 	RESET_ERROR
 } from './types/types';
 import usersReducer from '../reducers/usersReducer';
+import {BASE_API_URL} from './variables/api'
 
+//create new seperate contexts for actions and state
 export const UsersContext = createContext();
 export const UsersActions = createContext();
 
+//export provider
 export const UsersProvider = (props) => {
 	//initial state
 	const initialState = {
 		users: [],
-		currentUsername: {},
+		currentUsername: null,
 		loadingUsers: true,
 		loadingUser: true,
 		usersMsg: '',
@@ -27,26 +30,13 @@ export const UsersProvider = (props) => {
 
 	//setup userReducer hook using usersReducer and the initial state declared above
 	const [ state, dispatch ] = useReducer(usersReducer, initialState);
-
-	//get a list of all users
-	// const getUsers = async () => {
-	//     try {
-	//         const result = await axios.get("https://jsonplaceholder.typicode.com/users")
-	//         dispatch({
-	//             type: GET_USERS,
-	//             payload: result.data
-	//         })
-	//     } catch(err) {
-	//         dispatch({
-	//             type: GET_USERS_FAILED,
-	//         })
-	//     }
-	// }
-
+	
+	//action functions
+	//gets all users
 	const getUsers = useCallback(
 		async () => {
 			try {
-				const result = await axios.get('https://jsonplaceholder.typicode.com/users');
+				const result = await axios.get(`${BASE_API_URL}users`);
 				dispatch({
 					type: GET_USERS,
 					payload: result.data
@@ -59,13 +49,11 @@ export const UsersProvider = (props) => {
 		},
 		[]
 	);
-
-	//gets a specific users username. this can be used when seeing a list of an individual users posts, as the posts request
-	//only includes the userID, however by doing this request, you can pull the users information, such as name, username using the same
-	//userID parameter used when getting a users posts
-	const getCurrentUser = async (userID) => {
+	
+	//gets current user
+	const getCurrentUser = useCallback(async(userID) => {
 		try {
-			const result = await axios.get(`https://jsonplaceholder.typicode.com/users?id=${userID}`);
+			const result = await axios.get(`${BASE_API_URL}users?id=${userID}`);
 			dispatch({
 				type: GET_CURRENT_USER,
 				payload: result.data
@@ -75,22 +63,27 @@ export const UsersProvider = (props) => {
 				type: GET_CURRENT_USER_FAILED
 			});
 		}
-	};
+	},[])
 
-	const clearUser = () => {
+	//clear user state
+	const clearUser = useCallback(() => {
 		dispatch({
 			type: CLEAR_USER
 		});
-	};
+	},[])
 
+	//clear users state
 	const clearUsers = () => {
 		dispatch({
 			type: CLEAR_USERS
 		});
 	};
 
-	const resetError = () => dispatch({ type: RESET_ERROR });
-
+	//reset inprogress boolean
+	const resetError = useCallback(() => {
+		dispatch({type: RESET_ERROR})
+	},[])
+	
 	//store all actions here and add to the value in the provider
 	const actions = {
 		getUsers,

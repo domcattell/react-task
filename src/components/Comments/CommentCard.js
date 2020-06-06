@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { CommentsActions, CommentsContext } from '../../actions/comments.context';
-import styles from '../../styles/Comments/comment.module.scss';
+import useToggle from '../../hooks/useToggle';
 import EditComment from '../Modals/EditComment';
 import DeleteComment from '../Modals/DeleteModal';
-import useToggle from '../../hooks/useToggle';
 import ActionsDropdown from '../Layout/ActionsDropdown';
+import styles from '../../styles/Comments/comment.module.scss';
 
 /**
  * this component displays a comments data,
@@ -15,6 +15,7 @@ import ActionsDropdown from '../Layout/ActionsDropdown';
  */
 
 const Comment = (props) => {
+	const {name, email, body, id} = props;
 	const [ editModal, toggleEditModal ] = useToggle(false);
 	const [ deleteModal, toggleDeleteModal ] = useToggle(false);
 	const { deleteComment, commentActionProgress } = useContext(CommentsActions);
@@ -22,18 +23,18 @@ const Comment = (props) => {
 
 	return (
 		<div className={styles.comment}>
-			<p className={styles.comment__email}>{props.email}</p>
-			<p className={styles.comment__name}>{props.name}</p>
-			<p className={styles.comment__body}>{props.body}</p>
+			<p className={styles.comment__email}>{email}</p>
+			<p className={styles.comment__name}>{name}</p>
+			<p className={styles.comment__body}>{body}</p>
 			<div className={styles.comment__controls}>
 				<ActionsDropdown editOnClick={toggleEditModal} deleteOnClick={toggleDeleteModal} type="Comment" />
 			</div>
 			{deleteModal && (
 				<DeleteComment
-					id={props.id}
+					id={id}
 					type="Comment"
 					deleteFunction={deleteComment}
-					name={props.name}
+					name={name}
 					show={deleteModal}
 					onHide={toggleDeleteModal}
 					inProgress={inProgress}
@@ -42,9 +43,9 @@ const Comment = (props) => {
 			)}
 			{editModal && (
 				<EditComment
-					id={props.id}
-					name={props.name}
-					body={props.body}
+					id={id}
+					name={name}
+					body={body}
 					show={editModal}
 					onHide={toggleEditModal}
 				/>
