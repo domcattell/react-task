@@ -4,6 +4,7 @@ import { PostsActions, PostsContext } from '../../actions/posts.context';
 import useInput from '../../hooks/useInput';
 import Error from '../Layout/Error';
 import Loading from '../Layout/Loading';
+import lockModal from '../../helpers/lockModal';
 
 const NewPost = (props) => {
 	//state and action from context 
@@ -22,7 +23,7 @@ const NewPost = (props) => {
 	};
 
 	return (
-		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? lockModal : props.onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Add A New Post</Modal.Title>
 			</Modal.Header>

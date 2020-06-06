@@ -22,7 +22,7 @@ const UserPosts = (props) => {
 	//if current username does not exist, send a message saying user not found
 	//else show the users username
 	const user = () => {
-		if(!currentUsername) {
+		if(!currentUsername && !loadingUser) {
 			return <Header title="Username not found!"/>
 		} else {
 			return <Header title={loadingUser ? `Loading username...` : `See what ${currentUsername} has posted`} />

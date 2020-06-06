@@ -4,6 +4,7 @@ import {CommentsActions, CommentsContext} from '../../actions/comments.context';
 import useInput from '../../hooks/useInput'
 import Loading from '../Layout/Loading';
 import Error from '../Layout/Error';
+import lockModal from '../../helpers/lockModal';
 
 const EditComment = (props) => {
 	const {name, body, id, onHide, email} = props;
@@ -22,7 +23,7 @@ const EditComment = (props) => {
 	}
 
 	return (
-		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? lockModal : props.onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Edit Comment "{name}"</Modal.Title>
 			</Modal.Header>

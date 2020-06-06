@@ -10,6 +10,8 @@ import { UsersProvider } from './actions/users.context';
 import { AuthProvider } from './actions/auth.context';
 import { CommentsProvider } from './actions/comments.context';
 
+import ScrollToTop from './helpers/ScrollToTop';
+
 function App(props) {
 	/**
    * I use the contextAPI for global state, as I find it clean to use with
@@ -24,6 +26,7 @@ function App(props) {
 				<CommentsProvider>
 					<AuthProvider>
 						<NavigationBar/>
+							<ScrollToTop />
 							<Routes />
 					</AuthProvider>
 				</CommentsProvider>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Loading from '../Layout/Loading';
 import Error from '../Layout/Error';
+import lockModal from '../../helpers/lockModal'
 
 /**
  * re-usable delete modal component.
@@ -21,7 +22,7 @@ import Error from '../Layout/Error';
 	};
 
 	return (
-		<Modal show={show} onHide={props.isLoading ? false : props.onHide} size="md" centered>
+		<Modal show={show} onHide={isLoading ? lockModal : onHide} size="md" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Delete {type}</Modal.Title>
 			</Modal.Header>

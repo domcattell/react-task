@@ -4,9 +4,11 @@ import { CommentsActions, CommentsContext } from '../../actions/comments.context
 import useInput from '../../hooks/useInput';
 import Loading from '../Layout/Loading';
 import Error from '../Layout/Error';
+import lockModal from '../../helpers/lockModal'
 
 //modal for adding a comment.
 const AddComment = (props) => {
+	const {onHide, show} = props;
 	//grab state and actions from context
 	const { addComment, commentActionProgress, resetError } = useContext(CommentsActions);
 	const { inProgress, commentsError, commentsMsg } = useContext(CommentsContext);
@@ -23,7 +25,7 @@ const AddComment = (props) => {
 	};
 
 	return (
-		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
+		<Modal show={show} onHide={inProgress ? lockModal : onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Add Comment</Modal.Title>
 			</Modal.Header>
@@ -39,6 +41,7 @@ const AddComment = (props) => {
 							value={newComment.name || ''}
 							onChange={handleChange}
 							placeholder="Comment Name"
+							required
 						/>
 					</Form.Group>
 					<Form.Group>
@@ -69,7 +72,7 @@ const AddComment = (props) => {
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant="dark" type="button" onClick={props.onHide}>
+				<Button variant="dark" type="button" onClick={onHide}>
 					Close
 				</Button>
 			</Modal.Footer>

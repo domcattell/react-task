@@ -4,6 +4,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import useInput from '../../hooks/useInput';
 import Loading from '../Layout/Loading';
 import Error from '../Layout/Error';
+import lockModal from '../../helpers/lockModal';
 
 const EditPost = (props) => {
 	const { title, body, onHide, id } = props;
@@ -23,7 +24,7 @@ const EditPost = (props) => {
 	};
 
 	return (
-		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? lockModal : onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Edit Post "{title}"</Modal.Title>
 			</Modal.Header>
