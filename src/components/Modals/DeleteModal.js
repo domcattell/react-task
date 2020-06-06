@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import Loading from '../Layout/Loading';
+import Error from '../Layout/Error';
 
 /**
  * re-usable delete modal component.
@@ -12,26 +13,28 @@ import Loading from '../Layout/Loading';
  */
 
 	const DeleteModal = (props) => {
+	const {type, id, show, deleteFunction, onHide, progressFunction, isLoading, resetError, message, error} = props
 	const handleDelete = (e) => {
 		e.preventDefault();
-		props.progressFunction();
-		props.deleteFunction(props.id);
+		progressFunction();
+		deleteFunction(id);
 	};
 
 	return (
-		<Modal {...props} size="md" centered>
+		<Modal show={show} onHide={props.isLoading ? false : props.onHide} size="md" centered>
 			<Modal.Header closeButton>
-				<Modal.Title>Delete {props.type}</Modal.Title>
+				<Modal.Title>Delete {type}</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{props.inProgress && <Loading title={`Deleting ${props.type}`} />}
-				<p>Are you sure you want to delete this {props.type.toLowerCase()}?</p>
+				<Error error={error} reset={resetError} message={message}/>
+				<Loading isLoading={isLoading} title={`Deleting ${type}`} />
+				<p>Are you sure you want to delete this {type.toLowerCase()}?</p>
 			</Modal.Body>
 			<Modal.Footer className="d-flex justify-content-between">
 				<Button variant="danger" onClick={handleDelete}>
 					Delete
 				</Button>
-				<Button variant="dark" onClick={props.onHide}>
+				<Button variant="dark" onClick={onHide}>
 					Close
 				</Button>
 			</Modal.Footer>

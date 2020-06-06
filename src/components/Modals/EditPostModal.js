@@ -23,7 +23,7 @@ const EditPost = (props) => {
 	};
 
 	return (
-		<Modal {...props} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Edit Post "{title}"</Modal.Title>
 			</Modal.Header>

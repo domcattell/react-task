@@ -22,7 +22,7 @@ const NewPost = (props) => {
 	};
 
 	return (
-		<Modal {...props} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Add A New Post</Modal.Title>
 			</Modal.Header>

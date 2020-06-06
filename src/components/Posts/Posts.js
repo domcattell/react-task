@@ -28,7 +28,6 @@ const Posts = (props) => {
 			<Error reset={resetError} error={postsError} message={postsMsg}/>
 			<Loading isLoading={loading} title="Users Posts" />
 			<GridContainer>
-				{!userPosts.length && <h4>No posts to show</h4>}
 				{userPosts.map((post) => (
 					<PostsCard key={post.id} id={post.id} title={post.title} body={post.body} />
 				))}

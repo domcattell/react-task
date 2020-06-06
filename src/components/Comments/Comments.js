@@ -4,7 +4,7 @@ import { CommentsActions, CommentsContext } from '../../actions/comments.context
 import CommentCard from '../Comments/CommentCard';
 import useToggle from '../../hooks/useToggle';
 import Loading from '../Layout/Loading';
-import AddComment from '../Modals/AddComment';
+import AddComment from '../Modals/AddCommentModal';
 import Error from '../Layout/Error';
 import styles from '../../styles/Comments/comments.module.scss';
 

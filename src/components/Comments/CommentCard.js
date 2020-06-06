@@ -18,8 +18,8 @@ const Comment = (props) => {
 	const {name, email, body, id} = props;
 	const [ editModal, toggleEditModal ] = useToggle(false);
 	const [ deleteModal, toggleDeleteModal ] = useToggle(false);
-	const { deleteComment, commentActionProgress } = useContext(CommentsActions);
-	const { inProgress } = useContext(CommentsContext);
+	const { deleteComment, commentActionProgress, resetError } = useContext(CommentsActions);
+	const { inProgress, commentsError, commentsMsg } = useContext(CommentsContext);
 
 	return (
 		<div className={styles.comment}>
@@ -34,11 +34,13 @@ const Comment = (props) => {
 					id={id}
 					type="Comment"
 					deleteFunction={deleteComment}
-					name={name}
 					show={deleteModal}
 					onHide={toggleDeleteModal}
-					inProgress={inProgress}
 					progressFunction={commentActionProgress}
+					isLoading={inProgress}
+					resetError={resetError}
+					message={commentsMsg}
+					error={commentsError}
 				/>
 			)}
 			{editModal && (
@@ -46,6 +48,7 @@ const Comment = (props) => {
 					id={id}
 					name={name}
 					body={body}
+					email={email}
 					show={editModal}
 					onHide={toggleEditModal}
 				/>

@@ -10,7 +10,7 @@ import { UsersProvider } from './actions/users.context';
 import { AuthProvider } from './actions/auth.context';
 import { CommentsProvider } from './actions/comments.context';
 
-function App() {
+function App(props) {
 	/**
    * I use the contextAPI for global state, as I find it clean to use with
    * minimal markup. It's also very easy to setup and doesn't have to be configured
@@ -23,7 +23,7 @@ function App() {
 			<UsersProvider>
 				<CommentsProvider>
 					<AuthProvider>
-						<NavigationBar />
+						<NavigationBar/>
 							<Routes />
 					</AuthProvider>
 				</CommentsProvider>

@@ -23,7 +23,7 @@ const AddComment = (props) => {
 	};
 
 	return (
-		<Modal {...props} size="lg" centered>
+		<Modal show={props.show} onHide={inProgress ? false : props.onHide} size="lg" centered>
 			<Modal.Header closeButton>
 				<Modal.Title>Add Comment</Modal.Title>
 			</Modal.Header>

@@ -71,7 +71,7 @@ export const PostsProvider = (props) => {
 	},[])
 
 
-	//get a specific post
+	//get a specific post. can also be used with search bar to search for a post
 	const getPost = useCallback(async(postID) => {
 		try {
 			const result = await axios.get(`${BASE_API_URL}posts/${postID}`);
@@ -85,6 +85,7 @@ export const PostsProvider = (props) => {
 			});
 		}
 	},[])
+
 
 	// add a new post
 	const addPost = async (post) => {

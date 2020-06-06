@@ -6,7 +6,7 @@ import Posts from '../components/Posts/Posts';
 import CardContainer from '../components/Layout/CardContainer';
 import UserSettings from '../components/Users/UserSettings'
 import useToggle from '../hooks/useToggle';
-import NewPost from '../components/Modals/NewPost';
+import AddPost from '../components/Modals/AddPostModal';
 
 //here you can add a new post. It will not be saved to the database 
 //due to the api, but will be added to the global state
@@ -24,7 +24,7 @@ const AccountSettings = () => {
 					<Posts />
 				</CardContainer>
 			</Container>
-            {addPostModal && <NewPost show={addPostModal} onHide={toggleAddPostModal}/> }
+            {addPostModal && <AddPost show={addPostModal} onHide={toggleAddPostModal}/> }
 		</div>
 	);
 };
