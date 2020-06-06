@@ -9,7 +9,7 @@ const UserCard = (props) => {
 		<CardContainer>
 			<div className={styles.user_card__details}>
 				<div className={styles.user_card__avatar}>
-					<i class="fas fa-user"></i>
+					<i className="fas fa-user"></i>
 				</div>
 				<h5 className={styles.user_card__name}>{props.name}</h5>
 				<p className={styles.user_card__username}>username: {props.username}</p>
@@ -38,11 +38,6 @@ const UserCard = (props) => {
 					<Button variant="outline-dark" size="sm">
 						<i className="fas fa-comment-alt" />
 						Posts
-					</Button>
-				</Link>
-				<Link>
-					<Button variant="outline-dark" size="sm">
-						<i className="fas fa-images" />Albums
 					</Button>
 				</Link>
 			</div>

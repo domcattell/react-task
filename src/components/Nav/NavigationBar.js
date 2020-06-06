@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-import styles from '../../styles/NavigationBar/navbar.module.scss';
 import { Navbar, Nav, NavDropdown, Button, Form, FormControl } from 'react-bootstrap';
 import { AuthActions, AuthContext } from '../../actions/auth.context';
 
@@ -15,14 +14,14 @@ const NavigationBar = () => {
 
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
-			<Navbar.Brand href="/">Natural HR React Task</Navbar.Brand>
+			<Navbar.Brand><NavLink to="/">Natural HR React Task</NavLink></Navbar.Brand>
 			<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			<Navbar.Collapse id="navbar">
 				{isAuthenticated ? (
 					<>
 					<Nav className="mr-auto">
 						<NavDropdown className="mr-auto" title={loggedInUser} id="collasible-nav-dropdown">
-							<NavDropdown.Item >See My Posts</NavDropdown.Item>
+							<NavDropdown.Item href="/users/myaccount">My Account</NavDropdown.Item>
 							<NavDropdown.Divider />
 							<NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
 						</NavDropdown>

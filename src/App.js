@@ -1,5 +1,4 @@
 import React from 'react';
-import { toast } from 'react-toastify';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/reset.css';
 
@@ -9,14 +8,7 @@ import Routes from './routes/Routes';
 import { PostsProvider } from './actions/posts.context';
 import { UsersProvider } from './actions/users.context';
 import { AuthProvider } from './actions/auth.context';
-
-//configure react-toastify, an easy to use package that can be used
-//across the whole app. Used in global state, and displays a toast
-//with the error message when a request error occurs.
-toast.configure({
-	hideProgress: true,
-	autoClose: 5000
-});
+import { CommentsProvider } from './actions/comments.context';
 
 function App() {
 	/**
@@ -29,10 +21,12 @@ function App() {
 	return (
 		<PostsProvider>
 			<UsersProvider>
-				<AuthProvider>
-					<NavigationBar />
-					<Routes />
-				</AuthProvider>
+				<CommentsProvider>
+					<AuthProvider>
+						<NavigationBar />
+							<Routes />
+					</AuthProvider>
+				</CommentsProvider>
 			</UsersProvider>
 		</PostsProvider>
 	);

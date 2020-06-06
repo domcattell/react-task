@@ -1,12 +1,12 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useContext} from 'react';
 import { CommentsActions, CommentsContext } from '../../actions/comments.context';
-import { Form, Button, Card, Accordion } from 'react-bootstrap';
-import useInput from '../../hooks/useInput';
+import {Modal, Button, Form} from 'react-bootstrap'
 import Loading from '../Layout/Loading';
 import Error from '../Layout/Error';
+import useInput from '../../hooks/useInput';
 
-const AddComment = () => {
-	const { addComment, commentActionProgress, resetError } = useContext(CommentsActions);
+const AddComment = (props) => {
+    const { addComment, commentActionProgress, resetError } = useContext(CommentsActions);
 	const { inProgress, commentsError, commentsMsg } = useContext(CommentsContext);
 	const [ newComment, handleChange ] = useInput('');
 
@@ -14,19 +14,15 @@ const AddComment = () => {
 		e.preventDefault();
 		commentActionProgress();
         addComment(newComment);
-	};
-
-	return (
-		<Accordion className="mt-4">
-			<Card>
-				<Card.Header>
-					<Accordion.Toggle as={Button} variant="link" eventKey="0">
-						Add New Comment
-					</Accordion.Toggle>
-				</Card.Header>
-				<Accordion.Collapse eventKey="0">
-					<Card.Body>
-						<Error reset={resetError} error={commentsError} message={commentsMsg}/>
+    };
+    
+    return (
+        <Modal {...props} size="lg" centered>
+        <Modal.Header closeButton>
+            <Modal.Title>Add Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Error reset={resetError} error={commentsError} message={commentsMsg}/>
 						{inProgress && <Loading title="Adding Comment"/>}
 						<Form onSubmit={handleSubmit}>
 							<Form.Group>
@@ -60,14 +56,15 @@ const AddComment = () => {
 								/>
 							</Form.Group>
 							<Button variant="success" type="submit">
-								Submit Comment
+								Add Comment
 							</Button>
 						</Form>
-					</Card.Body>
-				</Accordion.Collapse>
-			</Card>
-		</Accordion>
-	);
-};
+        </Modal.Body>
+        <Modal.Footer>
+            <Button variant="dark" type="button" onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+    </Modal>
+    );
+}
 
 export default AddComment;

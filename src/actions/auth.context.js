@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from 'react';
 import accountData from '../placeholder_data/users.json';
 import authReducer from '../reducers/authReducer';
 import tokenValid from '../helpers/tokenValid';
-import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from './types';
+import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from './types/types';
 
 export const AuthContext = createContext();
 export const AuthActions = createContext();
@@ -14,7 +14,7 @@ export const AuthProvider = (props) => {
 		loadingAuth: false,
 		isAuthenticated: tokenValid(),
 		loggedInUser: '',
-		authError: ''
+		authError: '',
 	};
 
 	const [ state, dispatch ] = useReducer(authReducer, initialState);

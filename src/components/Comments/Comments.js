@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { PostsActions, PostsContext } from '../../actions/posts.context';
-import Comment from '../Comments/Comment';
+import {Button} from 'react-bootstrap';
+import { CommentsActions, CommentsContext } from '../../actions/comments.context';
+import CommentCard from '../Comments/CommentCard';
 import Loading from '../Layout/Loading';
 import styles from '../../styles/Comments/comments.module.scss'
-import AddComment from '../Comments/AddComment';
+import AddComment from '../Modals/AddComment';
+import useToggle from '../../hooks/useToggle';
 
 /**
  * component for fetching all comments for a post.
@@ -17,10 +19,10 @@ import AddComment from '../Comments/AddComment';
  */
 
 const Comments = (props) => {
-	const { getComments, clearComments } = useContext(PostsActions);
-	const { comments, loadingComments } = useContext(PostsContext);
-
+	const { getComments, clearComments } = useContext(CommentsActions);
+	const { comments, loading } = useContext(CommentsContext);
 	const [commentsAmount, setCommentsAmount] = useState("");
+	const [addModal, toggleAddModal] = useToggle(false)
 
 	useEffect(
 		() => {
@@ -29,7 +31,7 @@ const Comments = (props) => {
 				clearComments();
 			};
 		},
-		[props.id]
+		[]
 	);
 
 	//update commentsAmount state when comments.length changes
@@ -42,20 +44,21 @@ const Comments = (props) => {
     //will make the return statement harder to read.
 	return (
 		<div>
-			{loadingComments ? (
+			{loading ? (
 				<Loading title="comments"/>
 			) : (
 				<div className={styles.comments}>
 				<p className={styles.comments__header}>{commentsAmount} Comments</p>
                 {comments.map((comment) => 
-                <Comment
+                <CommentCard
 					key={comment.id}
 					id={comment.id}
                     name={comment.name} 
                     email={comment.email} 
                     body={comment.body} 
                 />)}
-				<AddComment />
+				<Button className="mt-3" variant="success" onClick={toggleAddModal}>Add Comment</Button>
+				{addModal && <AddComment show={addModal} onHide={toggleAddModal} />}
 				</div>
 			)}
 		</div>

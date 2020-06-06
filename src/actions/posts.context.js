@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import {
-	GET_POSTS,
 	GET_USER_POSTS,
 	ADD_POST,
 	EDIT_POST,
@@ -8,23 +7,17 @@ import {
 	GET_POSTS_FAILED,
 	GET_POST,
 	GET_POST_FAILED,
-	GET_COMMENTS,
-	GET_COMMENTS_FAILED,
 	CLEAR_POST,
-	CLEAR_COMMENTS,
 	CLEAR_USERS_POSTS,
 	ADD_POST_FAILED,
 	EDIT_POST_FAILED,
 	DELETE_POST_FAILED,
-	EDIT_COMMENT,
-	EDIT_COMMENT_FAILED,
-	DELETE_COMMENT,
-	DELETE_COMMENT_FAILED,
-	ADD_COMMENT,
-	ADD_COMMENT_FAILED
-} from '../actions/types';
+	ACTION_PROGRESS,
+	RESET_ERROR
+} from './types/types';
 import axios from 'axios';
 import postsReducer from '../reducers/postsReducer';
+import { BASE_API_URL } from './variables/api';
 
 /**
  * Uses the context API here for global state.
@@ -44,21 +37,17 @@ import postsReducer from '../reducers/postsReducer';
 export const PostsContext = createContext();
 export const PostsActions = createContext();
 
-const BASE_API_URL = "https://jsonplaceholder.typicode.com/"
-
 export const PostsProvider = (props) => {
 	const initialState = {
-		comments: [],
 		post: {},
 		userPosts: [],
-		PostsMsg: "",
-		CommentsMsg: "null",
-		loadingPost: true,
-		loadingUserPosts: true,
-		loadingComments: true
+		PostsMsg: '',
+		loading: true,
+		inProgress: false,
+		postsError: false
 	};
-	/** usually @postsError could be a response from the server, however
-    * as the backend can't be controlled here, the error message has been manually set in the reducer */
+	/** usually @postsMsg could be a response from the server, however
+    * as the backend can't be controlled here, the message has been manually set in the reducer */
 
 	const [ state, dispatch ] = useReducer(postsReducer, initialState);
 
@@ -87,22 +76,7 @@ export const PostsProvider = (props) => {
 			});
 		} catch (error) {
 			dispatch({
-				type: GET_POSTS_FAILED
-			});
-		}
-	};
-
-	//get comments for a post
-	const getComments = async (postID) => {
-		try {
-			const result = await axios.get(`${BASE_API_URL}posts/${postID}/comments`);
-			dispatch({
-				type: GET_COMMENTS,
-				payload: result.data
-			});
-		} catch (error) {
-			dispatch({
-				type: GET_COMMENTS_FAILED
+				type: GET_POST_FAILED
 			});
 		}
 	};
@@ -140,10 +114,10 @@ export const PostsProvider = (props) => {
 	//delete a post
 	const deletePost = async (postID) => {
 		try {
-			const result = await axios.delete(`${BASE_API_URL}posts/${postID}`);
+			await axios.delete(`${BASE_API_URL}posts/${postID}`);
 			dispatch({
 				type: DELETE_POST,
-				payload: result.data
+				payload: postID
 			});
 		} catch (error) {
 			dispatch({
@@ -152,51 +126,6 @@ export const PostsProvider = (props) => {
 		}
 	};
 
-	//add a comment
-	const addComment = async (comment) => {
-		try {
-			const result = await axios.post(`${BASE_API_URL}comments/`, comment)
-			dispatch({
-				type: ADD_COMMENT,
-				payload: result.data
-			})
-		} catch(error) {
-			dispatch({
-				type: ADD_COMMENT_FAILED,
-			})
-		}
-	}
-
-	//edit a comment
-	const editComment = async (comment, commentID) => {
-		try {
-			const result = await axios.put(`${BASE_API_URL}comments/${commentID}`, comment)
-			dispatch({
-				type: EDIT_COMMENT,
-				payload: result.data
-			})
-		} catch(error) {
-			dispatch({
-				type: EDIT_COMMENT_FAILED,
-			})
-		}
-	}
-
-	//delete a comment
-	const deleteComment = async (commentID) => {
-		try {
-			await axios.delete(`${BASE_API_URL}comments/${commentID}`)
-			dispatch({
-				type: DELETE_COMMENT,
-				payload: commentID
-			})
-		} catch (error) {
-			dispatch({
-				type: DELETE_COMMENT_FAILED,
-			})
-		}
-	}
-
 	//clear actions for cleanup on components. resets global state, such as loading states.
 	const clearPost = () => {
 		dispatch({
@@ -204,31 +133,22 @@ export const PostsProvider = (props) => {
 		});
 	};
 
-	const clearComments = () => {
-		dispatch({
-			type: CLEAR_COMMENTS
-		});
-	};
+	const clearUserPosts = () => dispatch({ type: CLEAR_USERS_POSTS });
 
-	const clearUserPosts = () => {
-		dispatch({
-			type: CLEAR_USERS_POSTS
-		});
-	};
+	const postActionProgress = () => dispatch({ type: ACTION_PROGRESS });
+
+	const resetError = () => dispatch({type: RESET_ERROR})
 
 	const actions = {
 		getUserPosts,
 		getPost,
-		getComments,
 		clearPost,
-		clearComments,
 		clearUserPosts,
 		addPost,
 		editPost,
 		deletePost,
-		editComment,
-		deleteComment,
-		addComment
+		postActionProgress,
+		resetError
 	};
 
 	return (

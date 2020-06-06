@@ -35,6 +35,7 @@ const LoginForm = (props) => {
 									value={user.username || ''}
 									onChange={handleChange}
 									placeholder="Enter Username"
+									required
 								/>
 							</Form.Group>
 
@@ -46,6 +47,7 @@ const LoginForm = (props) => {
 									value={user.password || ''}
 									onChange={handleChange}
 									placeholder="Password"
+									required
 								/>
 							</Form.Group>
 

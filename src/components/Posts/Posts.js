@@ -1,31 +1,32 @@
 import React, { useContext, useEffect } from 'react';
 import { PostsContext, PostsActions } from '../../actions/posts.context';
-
 import PostsCard from './PostsCard';
 import GridContainer from '../Layout/GridContainer';
 import Loading from '../Layout/Loading';
+import Error from '../Layout/Error';
 
 const Posts = (props) => {
-	const { getUserPosts, clearUserPosts } = useContext(PostsActions);
-	const { userPosts, loadingUserPosts } = useContext(PostsContext);
+	const { getUserPosts, clearUserPosts, resetError } = useContext(PostsActions);
+	const { userPosts, loading, postsError, postsMsg } = useContext(PostsContext);
 
 	useEffect(
 		() => {
 			getUserPosts(props.id);
-
 			return () => {
 				clearUserPosts();
 			};
 		},
-		[ props.id ]
+		[]
 	);
 
 	return (
 		<>
-			{loadingUserPosts ? (
+			<Error reset={resetError} error={postsError} message={postsMsg}/>
+			{loading ? (
 				<Loading title="Users Posts" />
 			) : (
 				<GridContainer>
+					{userPosts.length === 0 && <h4>No posts to show</h4>}
 					{userPosts.map((post) => (
 						<PostsCard key={post.id} id={post.id} title={post.title} body={post.body} />
 					))}

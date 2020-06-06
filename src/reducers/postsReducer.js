@@ -2,123 +2,135 @@ import {
 	GET_USER_POSTS,
 	GET_POSTS_FAILED,
 	EDIT_POST,
+	EDIT_POST_FAILED,
 	ADD_POST,
+	ADD_POST_FAILED,
 	DELETE_POST,
+	DELETE_POST_FAILED,
 	GET_POST,
 	GET_POST_FAILED,
-	GET_COMMENTS,
-	GET_COMMENTS_FAILED,
 	CLEAR_POST,
-	CLEAR_COMMENTS,
 	CLEAR_USERS_POSTS,
-	ADD_COMMENT,
-	ADD_COMMENT_FAILED,
-	EDIT_COMMENT,
-	EDIT_COMMENT_FAILED,
-	DELETE_COMMENT,
-	DELETE_COMMENT_FAILED
-} from '../actions/types';
+	ACTION_PROGRESS,
+	RESET_ERROR
+} from '../actions/types/types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
 		case GET_USER_POSTS:
 			return {
 				...state,
-				loadingUserPosts: false,
+				loading: false,
 				userPosts: action.payload,
-				PostsMsg: ''
+				PostsMsg: '',
+				postsError: false
 			};
 
 		case GET_POSTS_FAILED:
 			return {
 				...state,
-				loadingUserPosts: false,
+				loading: false,
 				userPosts: [],
-				PostsMsg: 'Something went wrong getting the posts'
+				PostsMsg: 'Something went wrong getting the posts',
+				postsError: true
 			};
 
 		case GET_POST:
 			return {
 				...state,
-				loadingPost: false,
+				loading: false,
 				post: action.payload,
-				postsMsg: ''
+				postsMsg: '',
+				postsError: false
 			};
 
 		case GET_POST_FAILED:
 			return {
 				...state,
-				loadingPost: false,
+				loading: false,
 				post: {},
-				PostsMsg: 'Something went wrong getting this post'
+				PostsMsg: 'Something went wrong getting this post',
+				postsError: true
 			};
 
-		case GET_COMMENTS:
+		case ADD_POST:
 			return {
 				...state,
-				loadingComments: false,
-				comments: action.payload,
-				commentsMsg: ''
+				userPosts: [ ...state.userPosts, action.payload ],
+				inProgress: false,
+				postsMsg: "Added post",
+				postsError: false
 			};
 
-		case GET_COMMENTS_FAILED:
+		case ADD_POST_FAILED:
 			return {
 				...state,
-				loadingComments: false,
-				comments: [],
-				commentsMsg: 'Something went wrong getting the comments'
+				inProgress: false,
+				postsMsg: 'Something went wrong adding the post',
+				postsError: true
+			};
+
+		case EDIT_POST:
+			return {
+				...state,
+				userPosts: state.userPosts.map((post) => (post.id === action.payload.id ? action.payload : post)),
+				inProgress: false,
+				postsMsg: "Edited post successfully",
+				postsError: false
+			};
+
+		case EDIT_POST_FAILED:
+			return {
+				...state,
+				inProgress: false,
+				postsMsg: 'Something went wrong editing the post',
+				postsError: true
+			};
+
+		case DELETE_POST:
+			return {
+				...state,
+				userPosts: state.userPosts.filter((post) => post.id !== action.payload),
+				inProgress: false,
+				postsError: false,
+				postsMsg: "Deleted post"
+			};
+
+		case DELETE_POST_FAILED:
+			return {
+				...state,
+				inProgress: false,
+				postsMsg: 'Something went wrong deleting the post',
+				postsError: true
 			};
 
 		case CLEAR_POST:
 			return {
 				...state,
-				post: {},
-				loadingPost: true,
-				postsMsg: ''
+				loading: true,
+				inProgress: false,
+				postsMsg: '',
+				postsError: false
 			};
 
 		case CLEAR_USERS_POSTS:
 			return {
 				...state,
-				userPosts: [],
-				loadingUserPosts: true
+				inProgress: false,
+				loading: true,
+				postsError: false
 			};
 
-		case CLEAR_COMMENTS:
+		case RESET_ERROR:
 			return {
 				...state,
-				comments: [],
-				loadingComments: true
+				postsError: false,
 			};
 
-		case EDIT_COMMENT:
+		case ACTION_PROGRESS:
 			return {
 				...state,
-				comments: state.comments.map((comment) => (comment.id === action.payload.id ? action.payload : comment))
-			};
-
-		case ADD_COMMENT:
-			return {
-				...state,
-				comments: [ ...state.comments, action.payload ]
-			};
-
-		case ADD_COMMENT_FAILED:
-			return {
-				...state,
-				commentError: 'Error ocurred adding the comment'
-			};
-
-		case EDIT_COMMENT_FAILED:
-			return {
-				...state,
-				commentError: 'Error ocurred updating the comment'
-			};
-
-		case DELETE_COMMENT:
-			return {
-				...state,
-				comments: state.comments.filter((comment) => comment.id !== action.payload)
+				inProgress: true
 			};
 
 		default:

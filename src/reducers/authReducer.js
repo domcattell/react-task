@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from '../actions/types';
+import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from '../actions/types/types';
 
 const reducer = (state, action) => {
 	switch (action.type) {

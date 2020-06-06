@@ -5,8 +5,8 @@ import ReactLoading from 'react-loading';
 //quickly added inline styles instead of creating another stylesheet
 const Loading = (props) => {
     return (
-        <div style={{"display": "flex", "flexDirection": "column", "justifyContent": "center", "alignItems": "center", "padding": "2em"}}>
-            <p>Loading {props.title}</p>
+        <div style={{"display": "flex", "flexDirection": "column", "justifyContent": "center", "alignItems": "center", "padding": "1.5em"}}>
+            <p>{props.title}</p>
             <ReactLoading type="bars" color="gray" height="5%" width="5%" />
         </div>
     );

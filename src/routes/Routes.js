@@ -7,6 +7,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import UserPosts from '../pages/UserPosts';
 import Post from '../pages/Post';
+import AccountSettings from '../pages/AccountSettings';
 
 import {AuthActions} from '../actions/auth.context';
 
@@ -24,6 +25,7 @@ const Routes = () => {
 			<Route exact path="/register" component={Register} />
 			<PrivateRoute exact path="/users/:id/posts" component={UserPosts} />
 			<PrivateRoute exact path="/posts/:id" component={Post} />
+			<PrivateRoute exact path="/users/myaccount" component={AccountSettings} />
 		</Switch>
 	);
 };

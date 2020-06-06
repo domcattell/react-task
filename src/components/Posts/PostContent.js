@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import styles from '../../styles/Posts/post_content.module.scss';
 import { PostsActions, PostsContext } from '../../actions/posts.context';
 import Loading from '../Layout/Loading';
+import Error from '../Layout/Error';
 
 /**
  * simple component for displaying the content of a post.
@@ -15,30 +16,28 @@ import Loading from '../Layout/Loading';
  */
 
 const PostContent = (props) => {
-	const { getPost, clearPost } = useContext(PostsActions);
-	const { post, loadingPost } = useContext(PostsContext);
+	const { getPost, clearPost, resetError } = useContext(PostsActions);
+	const { post, loading, postsError, postsMsg } = useContext(PostsContext);
 
-	useEffect(
-		() => {
-			getPost(props.id);
-			return () => {
-				clearPost();
-			};
-		},
-		[ props.id ]
-    );
-	
-	// console.log(loadingPost)
+	useEffect(() => {
+		getPost(props.id);
+		return () => {
+			clearPost();
+		};
+	},[]);
 
 	return (
-        <>
-        {loadingPost ? <Loading title="Post"/> :
-		<div className={styles.post_content}>
-			<h4 className={styles.post_content__title}>{post.title}</h4>
-			<p className={styles.post_content__body}>{post.body}</p>
+		<div>
+			<Error reset={resetError} error={postsError} message={postsMsg} />
+			{loading ? (
+				<Loading title="Post" />
+			) : (
+				<div className={styles.post_content}>
+					<h4 className={styles.post_content__title}>{post.title}</h4>
+					<p className={styles.post_content__body}>{post.body}</p>
+				</div>
+			)}
 		</div>
-        }
-        </>
 	);
 };
 

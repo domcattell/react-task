@@ -1,4 +1,12 @@
-import { GET_USERS, CLEAR_USERS, CLEAR_USER, GET_USERS_FAILED, GET_CURRENT_USER, GET_CURRENT_USER_FAILED } from '../actions/types';
+import {
+	GET_USERS,
+	CLEAR_USERS,
+	CLEAR_USER,
+	GET_USERS_FAILED,
+	GET_CURRENT_USER,
+	GET_CURRENT_USER_FAILED,
+	RESET_ERROR
+} from '../actions/types/types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -6,25 +14,19 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				users: action.payload,
-                loadingUsers: false,
-                usersError: ""
+				loadingUsers: false,
+				usersMsg: '',
+				usersError: false
 			};
 
 		case GET_USERS_FAILED:
 			return {
 				...state,
-                users: [],
-                loadingUsers: false,
-				usersError: 'Error occured trying to find users'
-            };
-            
-        case CLEAR_USERS:
-            return {
-                ...state,
-                users: [],
-                loadingUsers: true,
-                usersError: ""
-            }
+				users: [],
+				loadingUsers: false,
+				usersMsg: 'Error occured trying to find users',
+				usersError: true
+			};
 
 		//gets username for current users page that views their posts. uses array value 0
 		//can then easily be used within the app without mapping the value
@@ -32,25 +34,41 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				currentUsername: action.payload[0].username,
-                loadingUser: false,
-                usersError: ""
+				loadingUser: false,
+				usersMsg: '',
+				usersError: false
 			};
 
 		case GET_CURRENT_USER_FAILED:
 			return {
 				...state,
-                currentUsername: "",
-                loadingUser: false,
-				usersError: 'Error occured trying to find this user'
-            };
-            
-        case CLEAR_USER:
-            return {
-                ...state,
-                currentUsername: "",
-                loadingUser: true,
-                usersError: "",
-            }
+				currentUsername: '',
+				loadingUser: false,
+				usersMsg: 'Error occured trying to find this user',
+				usersError: true
+			};
+
+		case CLEAR_USER:
+			return {
+				...state,
+				loadingUser: true,
+				usersMsg: '',
+				usersError: false
+			};
+
+		case CLEAR_USERS:
+			return {
+				...state,
+				loadingUsers: true,
+				usersMsg: '',
+				usersError: false
+			};
+		
+		case RESET_ERROR:
+			return {
+				...state,
+				usersError: false
+			}
 
 		default:
 			return state;

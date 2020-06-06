@@ -1,23 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, memo } from 'react';
 import { UsersActions, UsersContext } from '../../actions/users.context';
 import Loading from '../Layout/Loading';
 import GridContainer from '../Layout/GridContainer';
 import UserCard from './UserCard';
+import Error from '../Layout/Error';
 
 const Users = () => {
-	const { users, loadingUsers } = useContext(UsersContext);
-	const { getUsers } = useContext(UsersActions);
+	const { users, loadingUsers, usersError, usersMsg } = useContext(UsersContext);
+	const { getUsers, resetError } = useContext(UsersActions);
 
 	useEffect(() => {
-		getUsers();
-	}, []);
+		getUsers()
+	}, [getUsers]);
 
 	return (
 		<div>
+			<Error reset={resetError} error={usersError} message={usersMsg}/>
 			{loadingUsers ? (
 				<Loading title="All Users" />
-			) : (
-				<GridContainer>
+				) : (
+					<GridContainer>
 					{users.map((user) => (
 						<UserCard
 							key={user.id}
@@ -40,4 +42,4 @@ const Users = () => {
 	);
 };
 
-export default Users;
+export default memo(Users);

@@ -42,3 +42,7 @@ export const LOGOUT = "LOGOUT"
 
 export const CLEAR_USER = "CLEAR_USER"
 export const CLEAR_USERS = "CLEAR_USERS"
+
+export const ACTION_PROGRESS = "COMMENT_ACTION_PROGRESS"
+
+export const RESET_ERROR = "CLEAR_MESSAGE"
