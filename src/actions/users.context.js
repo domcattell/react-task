@@ -53,7 +53,7 @@ export const UsersProvider = (props) => {
 	//gets current user
 	const getCurrentUser = useCallback(async(userID) => {
 		try {
-			const result = await axios.get(`${BASE_API_URL}users?id=${userID}`);
+			const result = await axios.get(`${BASE_API_URL}users/${userID}`);
 			dispatch({
 				type: GET_CURRENT_USER,
 				payload: result.data

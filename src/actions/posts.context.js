@@ -58,7 +58,7 @@ export const PostsProvider = (props) => {
 	//get users posts
 	const getUserPosts = useCallback(async(userID) => {
 		try {
-			const result = await axios.get(`${BASE_API_URL}posts?userId=${userID}`);
+			const result = await axios.get(`${BASE_API_URL}users/${userID}/posts`);
 			dispatch({
 				type: GET_USER_POSTS,
 				payload: result.data

@@ -33,7 +33,7 @@ const reducer = (state, action) => {
 		case GET_CURRENT_USER:
 			return {
 				...state,
-				currentUsername: action.payload[0].username,
+				currentUsername: action.payload.username,
 				loadingUser: false,
 				usersMsg: null,
 				usersError: false
