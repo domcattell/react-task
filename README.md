@@ -38,7 +38,7 @@ loading and errors both have a simple re-useable component that takes a few prop
 Both of these could instead be added into a single all in one HOC, as whatever component has a loading state will also have an error state when something goes wrong, however, I felt the implemented method was sufficient enough.
 
 ### Notes
-- Some components in the app are just for show. The register page won't actually create an account, and the users settings page is mostly for show. You can't actually change the user password, or update any of logged in users credentials.
+- Some components in the app are just for show. The register page won't actually create an account, and the users settings page is mostly for show. You can't actually change the user password, or update any of the logged in users credentials.
 - The search function is a very simple implementation, and thus you can only search for a post by using it's ID.
-- Editing comments and posts the user has added will result in an error message, as they don't actually exist on the server (it will not find their ID).
+- Editing comments and posts the user has added will result in an error message, as they don't actually exist on the server.
 - When deleting a comment or post a user has created, it will also delete the other posts/comments the has user created, as they all share the same ID on the server due to not actually being added into any database.
