@@ -25,10 +25,12 @@ export const DELETE_POST_FAILED = "DELETE_POST_FAILED"
 export const DELETE_COMMENT = "DELETE_COMMENT"
 export const DELETE_COMMENT_FAILED = "DELETE_COMMENT_FAILED"
 
+//these clear actions could be condensed and re-used, however for explicit
+//reasons I decided to make seperate variables for each clear action
 export const CLEAR_POST = "CLEAR_POST"
+export const CLEAR_USERS_POSTS = "CLEAR_USERS_POSTS"
 export const CLEAR_COMMENTS = "CLEAR_COMMENTS"
 export const CLEAR_CURRENT_USER = "CLEAR_CURRENT_USER"
-export const CLEAR_USERS_POSTS = "CLEAR_USERS_POSTS"
 export const CLEAR_AUTH = "CLEAR_AUTH"
 
 export const LOADING_POSTS = "LOADING_POSTS"
