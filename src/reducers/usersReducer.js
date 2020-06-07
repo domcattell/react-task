@@ -57,7 +57,8 @@ const reducer = (state, action) => {
 				loadingUser: true,
 				loadingUsers: true,
 				usersMsg: null,
-				usersError: false
+				usersError: false,
+				currentUsername: null
 			};
 		
 		case RESET_ERROR:

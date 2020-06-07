@@ -37,7 +37,7 @@ const EditPost = (props) => {
 						<Form.Control type="text" name="title" value={post.title} onChange={handleChange} required />
 					</Form.Group>
 					<Form.Group>
-						<Form.Label htmlFor="body">Body</Form.Label>
+						<Form.Label htmlFor="body">Post</Form.Label>
 						<Form.Control type="text" name="body" value={post.body} onChange={handleChange} required />
 					</Form.Group>
 					<Button variant="dark" type="submit">

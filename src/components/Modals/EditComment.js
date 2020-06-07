@@ -36,7 +36,7 @@ const EditComment = (props) => {
 						<Form.Control type="text" name="name" value={comment.name || ""} onChange={handleChange} required/>
 					</Form.Group>
 					<Form.Group>
-						<Form.Label htmlFor="body">Body</Form.Label>
+						<Form.Label htmlFor="body">Comment</Form.Label>
 						<Form.Control type="text" name="body" value={comment.body || ""} onChange={handleChange} required/>
 					</Form.Group>
 					<Form.Group>

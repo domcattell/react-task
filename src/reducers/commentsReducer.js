@@ -86,10 +86,11 @@ const reducer = (state, action) => {
 		case CLEAR_COMMENTS:
 			return {
 				...state,
-                loadingComments: true,
+                loading: true,
 				inProgress: false,
 				commentsMsg: null,
-				commentsError: false
+				commentsError: false,
+				comments: []
 			};
 
 		case RESET_ERROR:

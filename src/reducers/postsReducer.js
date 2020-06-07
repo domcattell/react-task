@@ -110,7 +110,8 @@ const reducer = (state, action) => {
 				loading: true,
 				inProgress: false,
 				postsMsg: null,
-				postsError: false
+				postsError: false,
+				post: {}
 			};
 
 		case CLEAR_USERS_POSTS:
@@ -118,7 +119,8 @@ const reducer = (state, action) => {
 				...state,
 				inProgress: false,
 				loading: true,
-				postsError: false
+				postsError: false,
+				userPosts: []
 			};
 
 		case RESET_ERROR:
