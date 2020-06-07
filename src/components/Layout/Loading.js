@@ -6,6 +6,10 @@ import ReactLoading from 'react-loading';
 //indicator. This could also be a HOC to dry up the code more instead
 //of adding it into each component it needs, however, I feel it works
 //well enough for the app.
+
+//this component could also use props.children, and render the loading indicator
+//or component when this component is wrapped around another component as a container.
+
 const Loading = ({ title, isLoading }) => {
 	return (
 		isLoading && (
