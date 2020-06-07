@@ -46,7 +46,7 @@ const EditPost = (props) => {
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant="dark" type="button" onClick={onHide}>
+				<Button variant="dark" type="button" onClick={onHide} disabled={inProgress ? true : false}>
 					Close
 				</Button>
 			</Modal.Footer>

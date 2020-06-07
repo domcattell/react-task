@@ -7,7 +7,7 @@ import Error from '../Layout/Error';
 
 const LoginForm = (props) => {
 	const { location } = props;
-	const { login } = useContext(AuthActions);
+	const { login, clearAuthMsg } = useContext(AuthActions);
 	const { authMsg, isAuthenticated } = useContext(AuthContext);
 	const [ user, handleChange ] = useInput('');
 
@@ -22,8 +22,11 @@ const LoginForm = (props) => {
 	useEffect(
 		() => {
 			isAuthenticated && location('/');
+			return () => {
+				clearAuthMsg();
+			};
 		},
-		[ isAuthenticated, location ]
+		[ isAuthenticated, location, clearAuthMsg ]
 	);
 
 	return (

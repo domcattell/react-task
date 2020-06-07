@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { CommentsActions, CommentsContext } from '../../actions/comments.context';
+import {PostsContext} from '../../actions/posts.context';
 import CommentCard from '../Comments/CommentCard';
 import useToggle from '../../hooks/useToggle';
 import Loading from '../Layout/Loading';
@@ -21,8 +22,11 @@ import styles from '../../styles/Comments/comments.module.scss';
 
 const Comments = (props) => {
 	const { id } = props;
+	//grab whats's needed from global state
 	const { getComments, clearComments, resetError } = useContext(CommentsActions);
 	const { comments, loading, commentsError, commentsMsg } = useContext(CommentsContext);
+	//use postsError here for the "add comment button". If there is an error with the post, disable the button
+	const {postsError} = useContext(PostsContext);
 	const [ addModal, toggleAddModal ] = useToggle(false);
 
 	//get comments. on unmount, reset loading and comments message
@@ -54,7 +58,7 @@ const Comments = (props) => {
 					body={comment.body}
 				/>
 			))}
-			<Button className="mt-3" variant="success" onClick={toggleAddModal}>
+			<Button className="mt-3" variant="success" onClick={toggleAddModal} disabled={postsError || loading ? true : false}>
 				Add Comment
 			</Button>
 			{addModal && <AddComment show={addModal} onHide={toggleAddModal} />}

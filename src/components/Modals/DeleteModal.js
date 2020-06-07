@@ -35,7 +35,7 @@ import lockModal from '../../helpers/lockModal'
 				<Button variant="danger" onClick={handleDelete}>
 					Delete
 				</Button>
-				<Button variant="dark" onClick={onHide}>
+				<Button variant="dark" onClick={onHide} disabled={isLoading ? true: false}>
 					Close
 				</Button>
 			</Modal.Footer>

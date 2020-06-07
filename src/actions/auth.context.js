@@ -2,7 +2,7 @@ import React, { createContext, useReducer, useCallback } from 'react';
 import accountData from '../placeholder_data/users.json';
 import authReducer from '../reducers/authReducer';
 import tokenValid from '../helpers/tokenValid';
-import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from './types/types';
+import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, CLEAR_AUTH } from './types/types';
 
 export const AuthContext = createContext();
 export const AuthActions = createContext();
@@ -14,7 +14,7 @@ export const AuthProvider = (props) => {
 		loadingAuth: false,
 		isAuthenticated: tokenValid(),
 		loggedInUser: '',
-		authMsg: null,
+		authMsg: null
 	};
 
 	//useReducer hook used with auth reducer and initial state
@@ -68,7 +68,7 @@ export const AuthProvider = (props) => {
 				type: AUTH_FAILED
 			});
 		}
-	},[]);
+	}, []);
 
 	//logout user
 	const logout = () => {
@@ -77,11 +77,16 @@ export const AuthProvider = (props) => {
 		});
 	};
 
+	const clearAuthMsg = useCallback(() => {
+		dispatch({ type: CLEAR_AUTH });
+	}, []);
+
 	//list of actions to use provider
 	const actions = {
 		login,
 		checkAuth,
-		logout
+		logout,
+		clearAuthMsg
 	};
 
 	//return providers

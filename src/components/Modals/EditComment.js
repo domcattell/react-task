@@ -47,7 +47,7 @@ const EditComment = (props) => {
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant="dark" type="button" onClick={onHide}>Close</Button>
+				<Button variant="dark" type="button" onClick={onHide} disabled={inProgress ? true : false}>Close</Button>
 			</Modal.Footer>
 		</Modal>
 	);

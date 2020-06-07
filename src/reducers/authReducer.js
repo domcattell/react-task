@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT } from '../actions/types/types';
+import { LOGIN_SUCCESS, LOGIN_FAILED, AUTH_SUCCESS, AUTH_FAILED, LOGOUT, CLEAR_AUTH } from '../actions/types/types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -41,7 +41,7 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: '',
 				isAuthenticated: false,
-				authMsg: "Please log in"
+				authMsg: null
 			};
 
 		case LOGOUT:
@@ -52,8 +52,14 @@ const reducer = (state, action) => {
 				loadingAuth: false,
 				loggedInUser: '',
 				isAuthenticated: false,
-				authMsg: null
+				authMsg: "Successfully logged out"
 			};
+
+		case CLEAR_AUTH:
+			return {
+				...state,
+				authMsg: null
+			}
 
 		default:
 			return state;

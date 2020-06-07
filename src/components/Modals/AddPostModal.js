@@ -59,7 +59,7 @@ const NewPost = (props) => {
 				</Form>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button variant="dark" type="button" onClick={props.onHide}>
+				<Button variant="dark" type="button" onClick={props.onHide} disabled={inProgress ? true : false}>
 					Close
 				</Button>
 			</Modal.Footer>
