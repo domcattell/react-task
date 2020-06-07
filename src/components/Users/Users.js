@@ -22,7 +22,7 @@ const Users = () => {
 	return (
 		<div>
 			<Error reset={resetError} error={usersError} message={usersMsg} />
-			<Loading isLoading={loadingUsers} title="All Users" />
+			<Loading isLoading={loadingUsers} title="Loading All Users" />
 			<GridContainer>
 				{users.map((user) => (
 					<UserCard

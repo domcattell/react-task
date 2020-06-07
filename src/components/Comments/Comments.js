@@ -6,25 +6,24 @@ import CommentCard from '../Comments/CommentCard';
 import useToggle from '../../hooks/useToggle';
 import Loading from '../Layout/Loading';
 import AddComment from '../Modals/AddCommentModal';
-import Error from '../Layout/Error';
 import styles from '../../styles/Comments/comments.module.scss';
 
 /**
  * component for fetching all comments for a post.
  * firstly gets what needed from globalstate using the context hook
  * gets comments with @getComments using props.id as the param based from
- * the parent component. @commentsLoading is set to true in global state,
+ * the parent component. @loading is set to true in global state,
  * once the async function @getComments has done finished, it will set
- * @commentsLoading to false whether to request failed or succeeded.
+ * @loading to false whether to request failed or succeeded.
  * @clearComments will remove the comments from global state and reset 
- * @commentsLoading to true again.
+ * @loading to true again.
  */
 
 const Comments = (props) => {
 	const { id } = props;
 	//grab whats's needed from global state
-	const { getComments, clearComments, resetError } = useContext(CommentsActions);
-	const { comments, loading, commentsError, commentsMsg } = useContext(CommentsContext);
+	const { getComments, clearComments } = useContext(CommentsActions);
+	const { comments, loading } = useContext(CommentsContext);
 	//use postsError here for the "add comment button". If there is an error with the post, disable the button
 	const {postsError} = useContext(PostsContext);
 	const [ addModal, toggleAddModal ] = useToggle(false);
@@ -43,11 +42,10 @@ const Comments = (props) => {
 	//loading and error components to manage state. These could potentially
 	//be merged together into an all in once higher order component,
 	//however, I feel this is sufficient enough for the app. A HOC to manage
-	//these may work better something like Redux
+	//these may work better with something like Redux
 	return (
 		<div className={styles.comments}>
 			<Loading isLoading={loading} title="Loading Comments" />
-			<Error reset={resetError} error={commentsError} message={commentsMsg}/>
 			<p className={styles.comments__header}>{comments.length} Comments</p>
 			{comments.map((comment) => (
 				<CommentCard

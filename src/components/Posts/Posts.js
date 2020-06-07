@@ -3,12 +3,11 @@ import { PostsContext, PostsActions } from '../../actions/posts.context';
 import PostsCard from './PostsCard';
 import GridContainer from '../Layout/GridContainer';
 import Loading from '../Layout/Loading';
-import Error from '../Layout/Error';
 
 const Posts = (props) => {
 	//get actions and state from context
-	const { getUserPosts, clearUserPosts, resetError } = useContext(PostsActions);
-	const { userPosts, loading, postsError, postsMsg } = useContext(PostsContext);
+	const { getUserPosts, clearUserPosts } = useContext(PostsActions);
+	const { userPosts, loading } = useContext(PostsContext);
 
 	//get users posts. on dismount, clear loading and error message
 	useEffect(
@@ -21,12 +20,10 @@ const Posts = (props) => {
 		[getUserPosts, clearUserPosts, props.id]
 	);
 	
-	//displays a card view using "PostsCard" for each users post. if no posts length is 0,
-	//display a message saying the user has no posts
+	//displays a card view using "PostsCard" for each users post.
 	return (
 		<>
-			<Error reset={resetError} error={postsError} message={postsMsg}/>
-			<Loading isLoading={loading} title="Users Posts" />
+			<Loading isLoading={loading} title="Loading Users Posts" />
 			<GridContainer>
 				{userPosts.map((post) => (
 					<PostsCard key={post.id} id={post.id} title={post.title} body={post.body} />
