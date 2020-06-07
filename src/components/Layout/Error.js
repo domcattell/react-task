@@ -7,9 +7,6 @@ import { Alert } from 'react-bootstrap';
 //back to false. some components may not need to reset the error,
 //so the reset function is optional
 
-//this component could also use props.children, and render the loading indicator
-//or component when this component is wrapped around another component as a container.
-
 const Error = ({ reset, error, message }) => {
 	//if reset props exists, run on on dismount
 	useEffect(
