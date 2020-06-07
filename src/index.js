@@ -5,7 +5,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
-	<BrowserRouter>
+	<BrowserRouter basename="/react-task">
 		<React.StrictMode>
 			<App />
 		</React.StrictMode>
